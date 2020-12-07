@@ -12,6 +12,10 @@ public class Role extends BaseEntity {
     public Role() {
     }
 
+    public Role(String name) {
+        this.name = name;
+    }
+
     @Column(unique = true)
     public String getName() {
         return name;
