@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import softuni.judge.model.binding.UserLoginBindingModel;
 import softuni.judge.model.binding.UserRegisterBindingModel;
 import softuni.judge.model.service.UserServiceModel;
 import softuni.judge.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -30,6 +32,20 @@ public class UserController {
     @GetMapping("/login")
     public ModelAndView login() {
         return new ModelAndView("login");
+    }
+
+    @PostMapping("/login")
+    public ModelAndView loginConfirm(@Valid @ModelAttribute("userLoginBindingModel") UserLoginBindingModel userLoginBindingModel, BindingResult bindingResult, ModelAndView modelAndView, HttpSession httpSession) {
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("redirect:/users/login");
+        } else {
+            modelAndView.setViewName("redirect:/");
+        }
+
+        //TODO UserServiceModel (login in service)
+        httpSession.setAttribute("user", "userServiceModel");
+        httpSession.setAttribute("id", "userId");
+        return modelAndView;
     }
 
 //    @PostMapping("/login")
