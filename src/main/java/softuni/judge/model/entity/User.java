@@ -44,7 +44,7 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
-    @Column(name = "github_address", unique = true, nullable = false)
+    @Column(name = "github_address", nullable = false)
     public String getGit() {
         return git;
     }

@@ -18,12 +18,12 @@ public class UserLoginBindingModel {
         this.password = password;
     }
 
-    @Length(min = 2, max = 10, message = "Username must be more than 2 characters")
+    @Length(min = 2, message = "Username length must be minimum 2 characters.")
     public String getUsername() {
         return username;
     }
 
-    @Length(min = 3, max = 10, message = "Username must be more than 3 characters")
+    @Length(min = 3, message = "Password length must be minimum 3 characters.")
     public String getPassword() {
         return password;
     }

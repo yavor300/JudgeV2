@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 @Table(name = "exercises")
 public class Exercise extends BaseEntity {
     private String name;
-    private LocalDateTime addedOn;
+    private LocalDateTime startedOn;
     private LocalDateTime dueDate;
 
     public Exercise() {
     }
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false )
     public String getName() {
         return name;
     }
@@ -24,16 +24,16 @@ public class Exercise extends BaseEntity {
         this.name = name;
     }
 
-    @Column(name = "added_on", nullable = false)
-    public LocalDateTime getAddedOn() {
-        return addedOn;
+    @Column(name = "started_on")
+    public LocalDateTime getStartedOn() {
+        return startedOn;
     }
 
-    public void setAddedOn(LocalDateTime addedOn) {
-        this.addedOn = addedOn;
+    public void setStartedOn(LocalDateTime startedOn) {
+        this.startedOn = startedOn;
     }
 
-    @Column(name = "due_date", nullable = false)
+    @Column(name = "due_date")
     public LocalDateTime getDueDate() {
         return dueDate;
     }

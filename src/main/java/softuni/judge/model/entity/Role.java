@@ -1,27 +1,30 @@
 package softuni.judge.model.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "roles")
 public class Role extends BaseEntity {
-    private String name;
+    private RoleNameEnum name;
 
     public Role() {
     }
 
-    public Role(String name) {
+    public Role(RoleNameEnum name) {
         this.name = name;
     }
 
-    @Column(unique = true)
-    public String getName() {
+    @Enumerated(EnumType.STRING)
+    public RoleNameEnum getName() {
         return name;
     }
 
-    public void setName(String name) {
+
+
+    public void setName(RoleNameEnum name) {
         this.name = name;
     }
 }

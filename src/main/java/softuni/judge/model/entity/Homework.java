@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "homeworks")
+@Table(name = "homeworks ")
 public class Homework extends BaseEntity {
     private LocalDateTime addedOn;
     private String gitAddress;
@@ -17,7 +17,7 @@ public class Homework extends BaseEntity {
     public Homework() {
     }
 
-    @Column(name = "added_on", nullable = false)
+    @Column(name = "added_on")
     public LocalDateTime getAddedOn() {
         return addedOn;
     }
@@ -26,7 +26,7 @@ public class Homework extends BaseEntity {
         this.addedOn = addedOn;
     }
 
-    @Column(name = "git_address", nullable = false, unique = true)
+    @Column(name = "git_address")
     public String getGitAddress() {
         return gitAddress;
     }
