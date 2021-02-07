@@ -79,8 +79,15 @@ public class UserController extends BaseController {
                 return super.redirect("/users/login");
             }
 
-            httpSession.setAttribute("user", userServiceModel);
+            //httpSession.setAttribute("user", userServiceModel);
+            userService.login(userServiceModel);
             return super.redirect("/");
         }
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView logout() {
+        userService.logout();
+        return super.redirect("/");
     }
 }
