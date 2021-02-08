@@ -1,6 +1,9 @@
 package softuni.judge.service;
 
+import softuni.judge.model.entity.RoleNameEnum;
 import softuni.judge.model.service.UserServiceModel;
+
+import java.util.List;
 
 public interface UserService {
     UserServiceModel registerUser(UserServiceModel userServiceModel);
@@ -10,4 +13,8 @@ public interface UserService {
     void login(UserServiceModel userServiceModel);
 
     void logout();
+
+    List<String> findALlUsernames();
+
+    void changeRole(String username, RoleNameEnum roleNameEnum);
 }

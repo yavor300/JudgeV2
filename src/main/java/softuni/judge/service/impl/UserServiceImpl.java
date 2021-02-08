@@ -3,6 +3,7 @@ package softuni.judge.service.impl;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import softuni.judge.model.entity.Role;
 import softuni.judge.model.entity.RoleNameEnum;
 import softuni.judge.model.entity.User;
 import softuni.judge.model.service.UserServiceModel;
@@ -10,6 +11,9 @@ import softuni.judge.repository.UserRepository;
 import softuni.judge.security.CurrentUser;
 import softuni.judge.service.RoleService;
 import softuni.judge.service.UserService;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -56,5 +60,22 @@ public class UserServiceImpl implements UserService {
         currentUser.setUsername(null)
                 .setId(null)
                 .setRole(null);
+    }
+
+    @Override
+    public List<String> findALlUsernames() {
+        return userRepository.findAllUsernames();
+    }
+
+    @Override
+    public void changeRole(String username, RoleNameEnum roleNameEnum) {
+        Optional<User> user = userRepository.findByUsername(username);
+
+        if (user.isPresent()) {
+            if (user.get().getRole().getName() != roleNameEnum) {
+                user.get().setRole(modelMapper.map(roleService.findByName(roleNameEnum), Role.class));
+                userRepository.save(user.get());
+            }
+        }
     }
 }
