@@ -53,6 +53,8 @@ public class HomeworkController extends BaseController {
         if (isLate) {
             redirectAttributes.addFlashAttribute("homeworkAddBindingModel", homeworkAddBindingModel);
             redirectAttributes.addFlashAttribute("isLate", true);
+
+            return super.redirect("/homework/add");
         }
 
         homeworkService.add(homeworkAddBindingModel.getExercise(),
