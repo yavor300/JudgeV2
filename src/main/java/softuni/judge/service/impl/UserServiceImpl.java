@@ -7,6 +7,7 @@ import softuni.judge.model.entity.Role;
 import softuni.judge.model.entity.RoleNameEnum;
 import softuni.judge.model.entity.User;
 import softuni.judge.model.service.UserServiceModel;
+import softuni.judge.model.view.UserProfileViewModel;
 import softuni.judge.repository.UserRepository;
 import softuni.judge.security.CurrentUser;
 import softuni.judge.service.RoleService;
@@ -14,6 +15,7 @@ import softuni.judge.service.UserService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -82,5 +84,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(String id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public UserProfileViewModel findProfileById(String id) {
+        User user = userRepository.findById(id)
+                .orElse(null);
+
+
+        return modelMapper.map(
+                user, UserProfileViewModel.class)
+                .setHomeworkSet(user.getHomeworkSet()
+                .stream()
+                .map(homework -> homework.getExercise().getName()).collect(Collectors.toSet()));
     }
 }
