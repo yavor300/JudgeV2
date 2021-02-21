@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.judge.model.binding.CommentAddBindingModel;
+import softuni.judge.model.service.CommentServiceModel;
 import softuni.judge.model.view.HomeworkViewModel;
+import softuni.judge.service.CommentService;
 import softuni.judge.service.HomeworkService;
 
 import javax.validation.Valid;
@@ -19,11 +21,13 @@ import javax.validation.Valid;
 @RequestMapping("/comments")
 public class CommentController {
     private final HomeworkService homeworkService;
+    private final CommentService commentService;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public CommentController(HomeworkService homeworkService, ModelMapper modelMapper) {
+    public CommentController(HomeworkService homeworkService, CommentService commentService, ModelMapper modelMapper) {
         this.homeworkService = homeworkService;
+        this.commentService = commentService;
         this.modelMapper = modelMapper;
     }
 
@@ -50,6 +54,8 @@ public class CommentController {
             return "redirect:add";
         }
 
+        CommentServiceModel commentServiceModel = modelMapper.map(commentAddBindingModel, CommentServiceModel.class);
+        commentService.add(commentServiceModel, commentAddBindingModel.getHomeworkId());
 
         return "redirect:/";
     }
